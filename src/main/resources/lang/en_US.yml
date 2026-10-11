@@ -1,0 +1,41 @@
+prefix: "<gradient:#00c6ff:#0072ff><bold>TerraCraft</bold></gradient> <dark_gray>»</dark_gray> "
+
+rules:
+  header: "<gold><bold>📜 Server Rules</bold></gold>"
+  footer: "<gray>Ignorance of the rules does not exempt from responsibility.</gray>"
+
+info:
+  header: "<gold><bold>ℹ Server Info</bold></gold>"
+
+help:
+  header: "<gold><bold>❓ Help</bold></gold>"
+  group_header: "<aqua><bold>▸ {group}</bold></aqua>"
+  entry_format: " <gray>•</gray> <yellow>{cmd}</yellow> <gray>- {description}</gray>"
+  aliases_format: " <dark_gray>({aliases})</dark_gray>"
+  no_groups: "<gray>No commands available.</gray>"
+  hover_click: "<gray>Click to insert <white>{cmd}</white></gray>"
+
+links:
+  header: "<gold><bold>🔗 Our Links</bold></gold>"
+  entry_format: " <gray>•</gray> {display} <dark_gray>({url})</dark_gray>"
+  hover_open: "<gray>Open: <white>{url}</white></gray>"
+
+pagination:
+  header: "<gold>─── {title} ({page}/{total}) ───</gold>"
+  footer: "<gray>→ /{command} {next_page} for next page</gray>"
+  next_label: "▶"
+  prev_label: "◀"
+  page_indicator: " {page} / {total} "
+  hover_next: "<gray>Next page</gray>"
+  hover_prev: "<gray>Previous page</gray>"
+  invalid: "<red>Invalid page number.</red>"
+
+error:
+  player_only: "<red>This command is for players only.</red>"
+  no_permission: "<red>Insufficient permissions.</red>"
+  unknown_command: "<red>Unknown command.</red>"
+
+update:
+  available: "<gold>⚡ Update available: <white>{version}</white> <gray>({url})</gray>"
+  latest: "<green>✔ You are running the latest version.</green>"
+  error: "<red>Failed to check for updates.</red>"
