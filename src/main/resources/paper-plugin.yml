@@ -1,0 +1,7 @@
+name: Info
+version: '1.0.0'
+main: ru.net.terracraft.info.TerraCraftInfoPlugin
+api-version: '1.21'
+authors: [ luci ]
+description: Сундук ест ресурсы для привата
+website: terracraft.net.ru
