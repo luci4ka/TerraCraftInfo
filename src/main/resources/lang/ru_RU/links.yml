@@ -1,0 +1,14 @@
+# Ссылки. display — то, что видит игрок, url — куда ведёт клик.
+links.header: "<gold><bold>🔗 Наши ссылки</bold></gold>"
+links.entry_format: " <gray>•</gray> {display} <dark_gray>({url})</dark_gray>"
+links.hover_open: "<gray>Открыть: <white>{url}</white></gray>"
+links.help.short: "Ссылки сервера"
+links.help.full: "Показывает ссылки на Discord, сайт и другие ресурсы."
+
+links:
+  - display: "<aqua>Discord</aqua>"
+    url: "https://discord.gg/terracraft"
+  - display: "<green>Сайт</green>"
+    url: "https://terracraft.ru"
+  - display: "<gold>Донат</gold>"
+    url: "https://terracraft.ru/donate"

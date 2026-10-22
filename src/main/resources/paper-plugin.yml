@@ -1,18 +1,18 @@
 name: TerraCraftInfo
 version: '${version}'
-main: ru.net.terracraft.info.TerraCraftInfoPlugin
-api-version: '1.21'
+main: ru.terracraft.info.TerraCraftInfoPlugin
+api-version: '26.3'
+java-version: '25'
 authors: [ luci ]
 description: Информационный плагин с /rules, /help, /info, /links
-website: terracraft.net.ru
+website: terracraft.ru
 
 dependencies:
   server:
+    CommandAPI:
+      load: BEFORE
+      required: true
+      join-classpath: true
     PlaceholderAPI:
-      required: false
       load: BEFORE
-      join-classpath: true
-    LuckPerms:
       required: false
-      load: BEFORE
-      join-classpath: true

@@ -1,0 +1,20 @@
+# TerraCraftInfo — общие ключи (ru_RU)
+
+prefix: "<gradient:#00c6ff:#0072ff><bold>TerraCraft</bold></gradient> <dark_gray>»</dark_gray> "
+
+pagination.header: "<gold>─── {title} ({page}/{total}) ───</gold>"
+pagination.footer: "<gray>→ /{command} {next_page} для следующей страницы</gray>"
+pagination.next_label: "▶"
+pagination.prev_label: "◀"
+pagination.page_indicator: " {page} / {total} "
+pagination.hover_next: "<gray>Следующая страница</gray>"
+pagination.hover_prev: "<gray>Предыдущая страница</gray>"
+pagination.invalid: "<red>Неверный номер страницы.</red>"
+
+error.player_only: "<red>Команда только для игроков.</red>"
+error.no_permission: "<red>Недостаточно прав.</red>"
+error.unknown_command: "<red>Неизвестная команда.</red>"
+
+update.available: "<gold>⚡ Доступно обновление: <white>{version}</white> <gray>({url})</gray>"
+update.latest: "<green>✔ У вас последняя версия.</green>"
+update.error: "<red>Не удалось проверить обновления.</red>"

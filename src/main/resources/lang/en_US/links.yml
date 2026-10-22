@@ -1,0 +1,14 @@
+# Links. display — what the player sees, url — where the click leads.
+links.header: "<gold><bold>🔗 Our Links</bold></gold>"
+links.entry_format: " <gray>•</gray> {display} <dark_gray>({url})</dark_gray>"
+links.hover_open: "<gray>Open: <white>{url}</white></gray>"
+links.help.short: "Server links"
+links.help.full: "Shows links to Discord, website, and other resources."
+
+links:
+  - display: "<aqua>Discord</aqua>"
+    url: "https://discord.gg/terracraft"
+  - display: "<green>Website</green>"
+    url: "https://terracraft.ru"
+  - display: "<gold>Donate</gold>"
+    url: "https://terracraft.ru/donate"

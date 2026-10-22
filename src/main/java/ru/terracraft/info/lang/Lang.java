@@ -1,8 +1,5 @@
-package ru.net.terracraft.info.lang;
+package ru.terracraft.info.lang;
 
-/**
- * Все ключи локализации. Значения — пути в lang/*.yml.
- */
 public enum Lang {
 
     PREFIX("prefix"),
@@ -10,9 +7,13 @@ public enum Lang {
     // ─── Rules ────────────────────────────────
     RULES_HEADER("rules.header"),
     RULES_FOOTER("rules.footer"),
+    RULES_HELP_SHORT("rules.help.short"),
+    RULES_HELP_FULL("rules.help.full"),
 
     // ─── Info ─────────────────────────────────
     INFO_HEADER("info.header"),
+    INFO_HELP_SHORT("info.help.short"),
+    INFO_HELP_FULL("info.help.full"),
 
     // ─── Help ─────────────────────────────────
     HELP_HEADER("help.header"),
@@ -21,11 +22,15 @@ public enum Lang {
     HELP_ALIASES_FORMAT("help.aliases_format"),
     HELP_NO_GROUPS("help.no_groups"),
     HELP_HOVER_CLICK("help.hover_click"),
+    HELP_COMMAND_HELP_SHORT("help.command.help.short"),
+    HELP_COMMAND_HELP_FULL("help.command.help.full"),
 
     // ─── Links ────────────────────────────────
     LINKS_HEADER("links.header"),
     LINKS_ENTRY_FORMAT("links.entry_format"),
     LINKS_HOVER_OPEN("links.hover_open"),
+    LINKS_HELP_SHORT("links.help.short"),
+    LINKS_HELP_FULL("links.help.full"),
 
     // ─── Pagination ───────────────────────────
     PAGE_HEADER("pagination.header"),
@@ -35,25 +40,13 @@ public enum Lang {
     PAGE_INDICATOR("pagination.page_indicator"),
     PAGE_HOVER_NEXT("pagination.hover_next"),
     PAGE_HOVER_PREV("pagination.hover_prev"),
-    PAGE_INVALID("pagination.invalid"),
-
-    // ─── Errors ───────────────────────────────
-    ERROR_PLAYER_ONLY("error.player_only"),
-    ERROR_NO_PERMISSION("error.no_permission"),
-    ERROR_UNKNOWN_COMMAND("error.unknown_command"),
 
     // ─── Update ───────────────────────────────
-    UPDATE_AVAILABLE("update.available"),
-    UPDATE_LATEST("update.latest"),
-    UPDATE_ERROR("update.error");
+    UPDATE_AVAILABLE("update.available");
 
     private final String path;
 
-    Lang(String path) {
-        this.path = path;
-    }
+    Lang(String path) { this.path = path; }
 
-    public String getPath() {
-        return path;
-    }
+    public String getPath() { return path; }
 }

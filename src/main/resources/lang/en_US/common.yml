@@ -1,0 +1,20 @@
+# TerraCraftInfo — common keys (en_US)
+
+prefix: "<gradient:#00c6ff:#0072ff><bold>TerraCraft</bold></gradient> <dark_gray>»</dark_gray> "
+
+pagination.header: "<gold>─── {title} ({page}/{total}) ───</gold>"
+pagination.footer: "<gray>→ /{command} {next_page} for next page</gray>"
+pagination.next_label: "▶"
+pagination.prev_label: "◀"
+pagination.page_indicator: " {page} / {total} "
+pagination.hover_next: "<gray>Next page</gray>"
+pagination.hover_prev: "<gray>Previous page</gray>"
+pagination.invalid: "<red>Invalid page number.</red>"
+
+error.player_only: "<red>This command is for players only.</red>"
+error.no_permission: "<red>Insufficient permissions.</red>"
+error.unknown_command: "<red>Unknown command.</red>"
+
+update.available: "<gold>⚡ Update available: <white>{version}</white> <gray>({url})</gray>"
+update.latest: "<green>✔ You are running the latest version.</green>"
+update.error: "<red>Failed to check for updates.</red>"

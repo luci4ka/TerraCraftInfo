@@ -1,0 +1,11 @@
+# Rules list. Each item is a MiniMessage string.
+rules.header: "<gold><bold>📜 Server Rules</bold></gold>"
+rules.footer: "<gray>Ignorance of the rules does not exempt from responsibility.</gray>"
+rules.help.short: "Server rules"
+rules.help.full: "Shows the list of server rules with pagination."
+
+rules:
+  - "<gold>1.</gold> <white>No griefing.</white>"
+  - "<gold>2.</gold> <white>No cheating.</white>"
+  - "<gold>3.</gold> <white>Do not insult other players.</white>"
+  - "<gold>4.</gold> <white>Do not advertise third-party servers.</white>"

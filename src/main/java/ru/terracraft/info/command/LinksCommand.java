@@ -1,4 +1,4 @@
-package ru.net.terracraft.info.command;
+package ru.terracraft.info.command;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.executors.CommandArguments;
@@ -7,10 +7,11 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import ru.net.terracraft.info.TerraCraftInfoPlugin;
-import ru.net.terracraft.info.config.InfoConfig;
-import ru.net.terracraft.info.lang.Lang;
-import ru.net.terracraft.info.util.MessageUtil;
+import ru.terracraft.info.TerraCraftInfoPlugin;
+import ru.terracraft.info.content.ContentManager;
+import ru.terracraft.info.lang.Lang;
+import ru.terracraft.info.util.LocalizedHelpTopic;
+import ru.terracraft.info.util.MessageUtil;
 
 public class LinksCommand {
 
@@ -23,6 +24,7 @@ public class LinksCommand {
     public void register() {
         new CommandAPICommand("links")
                 .withAliases("ссылки")
+                .withHelp(new LocalizedHelpTopic(plugin, "links", Lang.LINKS_HELP_SHORT, Lang.LINKS_HELP_FULL))
                 .executes((CommandSender sender, CommandArguments args) -> {
                     execute(sender);
                     return 1;
@@ -31,8 +33,8 @@ public class LinksCommand {
     }
 
     private void execute(CommandSender sender) {
-        var cfg = plugin.getInfoConfig();
         var lang = plugin.getLangManager();
+        var content = plugin.getContentManager();
         Player player = sender instanceof Player p ? p : null;
 
         sender.sendMessage(MessageUtil.parse(lang.raw(Lang.LINKS_HEADER, player), player));
@@ -40,7 +42,7 @@ public class LinksCommand {
         String format = lang.raw(Lang.LINKS_ENTRY_FORMAT, player);
         String hoverOpen = lang.raw(Lang.LINKS_HOVER_OPEN, player);
 
-        for (InfoConfig.LinkEntry entry : cfg.links.entries) {
+        for (ContentManager.LinkEntry entry : content.links(player)) {
             String line = format
                     .replace("{display}", entry.display())
                     .replace("{url}", entry.url());
@@ -49,8 +51,7 @@ public class LinksCommand {
                     .clickEvent(ClickEvent.openUrl(entry.url()))
                     .hoverEvent(HoverEvent.showText(
                             MessageUtil.parse(
-                                    (hoverOpen == null ? "<gray>Открыть: <white>{url}</white></gray>" : hoverOpen)
-                                            .replace("{url}", entry.url()),
+                                    hoverOpen.replace("{url}", entry.url()),
                                     player)));
 
             sender.sendMessage(msg);

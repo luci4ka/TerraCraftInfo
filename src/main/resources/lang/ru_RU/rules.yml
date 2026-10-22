@@ -1,0 +1,11 @@
+# Список правил. Каждый элемент — строка MiniMessage.
+rules.header: "<gold><bold>📜 Правила сервера</bold></gold>"
+rules.footer: "<gray>Незнание правил не освобождает от ответственности.</gray>"
+rules.help.short: "Правила сервера"
+rules.help.full: "Показывает список правил сервера с постраничной навигацией."
+
+rules:
+  - "<gold>1.</gold> <white>Не гриферить.</white>"
+  - "<gold>2.</gold> <white>Не использовать читы.</white>"
+  - "<gold>3.</gold> <white>Не оскорблять других игроков.</white>"
+  - "<gold>4.</gold> <white>Не рекламировать сторонние серверы.</white>"

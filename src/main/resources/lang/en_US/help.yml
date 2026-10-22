@@ -1,0 +1,29 @@
+# Command groups. Key — LuckPerms group. 'default' is visible to everyone.
+# description — localized command description.
+help.header: "<gold><bold>❓ Help</bold></gold>"
+help.group_header: "<aqua><bold>▸ {group}</bold></aqua>"
+help.entry_format: " <gray>•</gray> <yellow>{cmd}</yellow> <gray>- {description}</gray>"
+help.aliases_format: " <dark_gray>({aliases})</dark_gray>"
+help.no_groups: "<gray>No commands available.</gray>"
+help.hover_click: "<gray>Click to insert <white>{cmd}</white></gray>"
+help.command.help.short: "Command help"
+help.command.help.full: "Shows the list of available commands with descriptions."
+
+groups:
+  default:
+    - cmd: "/rules"
+      description: "Server rules"
+      aliases: ["/rules"]
+    - cmd: "/info"
+      description: "Server information"
+      aliases: ["/info"]
+    - cmd: "/links"
+      description: "Our links"
+      aliases: ["/links"]
+    - cmd: "/help"
+      description: "Command list"
+      aliases: ["/help"]
+  vip:
+    - cmd: "/fly"
+      description: "Flight (VIP)"
+      aliases: []

@@ -1,19 +1,11 @@
-package ru.net.terracraft.info;
+package ru.terracraft.info.util;
 
 import com.github.ezplugins.updater.UpdateChecker;
 import com.github.ezplugins.updater.UpdateResult;
 import org.bukkit.Bukkit;
-import ru.net.terracraft.info.lang.Lang;
+import ru.terracraft.info.TerraCraftInfoPlugin;
+import ru.terracraft.info.lang.Lang;
 
-/**
- * Отдельный класс для проверки обновлений через GitHub.
- * Библиотека: com.github.ez-plugins:mc-plugin-update-notifier
- *
- * Настройки репозитория:
- *   - owner:  GitHub username/org
- *   - repo:   название репозитория
- *   - version: текущая версия плагина
- */
 public class UpdateNotifier {
 
     private static final String GITHUB_OWNER = "luci4ka";
@@ -26,10 +18,6 @@ public class UpdateNotifier {
         this.plugin = plugin;
     }
 
-    /**
-     * Асинхронная проверка обновлений.
-     * Уведомляет консоль и всех онлайн-админов с правом terracraftinfo.update.
-     */
     public void checkAsync() {
         String currentVersion = plugin.getPluginMeta().getVersion();
 
@@ -40,16 +28,15 @@ public class UpdateNotifier {
             this.lastResult = result;
 
             if (result.hasError()) {
-                plugin.getLogger().warning(
-                        "Update check failed: " + result.getError().orElseThrow().getMessage());
+                String error = result.getError().map(Throwable::getMessage).orElse("unknown error");
+                plugin.getLogger().warning("Update check failed: " + error);
                 return;
             }
 
             if (result.isUpdateAvailable()) {
-                String latest = result.getLatestTag().orElse("unknown");
+                String latest = result.getLatestVersion().orElse("unknown");
                 plugin.getLogger().info("Доступно обновление: " + latest);
 
-                // Уведомляем админов в игре (в основном потоке)
                 Bukkit.getScheduler().runTask(plugin, () ->
                         Bukkit.getOnlinePlayers().stream()
                                 .filter(p -> p.hasPermission("terracraftinfo.update"))
@@ -58,7 +45,7 @@ public class UpdateNotifier {
                                             .raw(Lang.UPDATE_AVAILABLE, p)
                                             .replace("{version}", latest)
                                             .replace("{url}", result.getReleaseUrl().orElse(""));
-                                    p.sendMessage(ru.net.terracraft.info.util.MessageUtil.parse(msg, p));
+                                    p.sendMessage(MessageUtil.parse(msg, p));
                                 })
                 );
             } else {

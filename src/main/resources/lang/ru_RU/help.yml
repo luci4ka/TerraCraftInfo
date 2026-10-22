@@ -1,0 +1,29 @@
+# Группы команд. Ключ — группа LuckPerms. 'default' видна всем.
+# description — локализованное описание команды.
+help.header: "<gold><bold>❓ Помощь</bold></gold>"
+help.group_header: "<aqua><bold>▸ {group}</bold></aqua>"
+help.entry_format: " <gray>•</gray> <yellow>{cmd}</yellow> <gray>- {description}</gray>"
+help.aliases_format: " <dark_gray>({aliases})</dark_gray>"
+help.no_groups: "<gray>Нет доступных команд.</gray>"
+help.hover_click: "<gray>Нажми, чтобы вставить <white>{cmd}</white></gray>"
+help.command.help.short: "Помощь по командам"
+help.command.help.full: "Показывает список доступных команд с описанием."
+
+groups:
+  default:
+    - cmd: "/rules"
+      description: "Правила сервера"
+      aliases: ["/правила"]
+    - cmd: "/info"
+      description: "Информация о сервере"
+      aliases: ["/инфо"]
+    - cmd: "/links"
+      description: "Наши ссылки"
+      aliases: ["/ссылки"]
+    - cmd: "/help"
+      description: "Список команд"
+      aliases: ["/помощь"]
+  vip:
+    - cmd: "/fly"
+      description: "Полёт (VIP)"
+      aliases: []

@@ -1,4 +1,4 @@
-package ru.net.terracraft.info.command;
+package ru.terracraft.info.command;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.executors.CommandArguments;
@@ -7,11 +7,13 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import ru.net.terracraft.info.TerraCraftInfoPlugin;
-import ru.net.terracraft.info.config.InfoConfig;
-import ru.net.terracraft.info.lang.Lang;
-import ru.net.terracraft.info.util.MessageUtil;
+import ru.terracraft.info.TerraCraftInfoPlugin;
+import ru.terracraft.info.content.ContentManager;
+import ru.terracraft.info.lang.Lang;
+import ru.terracraft.info.util.LocalizedHelpTopic;
+import ru.terracraft.info.util.MessageUtil;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,9 +28,10 @@ public class HelpCommand {
     public void register() {
         new CommandAPICommand("help")
                 .withAliases("помощь")
+                .withHelp(new LocalizedHelpTopic(plugin, "help", Lang.HELP_COMMAND_HELP_SHORT, Lang.HELP_COMMAND_HELP_FULL))
                 .executes((CommandSender sender, CommandArguments args) -> {
                     execute(sender);
-                    return 1; // ResultingCommandExecutor — возвращаем int
+                    return 1;
                 })
                 .register();
     }
@@ -36,25 +39,25 @@ public class HelpCommand {
     private void execute(CommandSender sender) {
         var cfg = plugin.getInfoConfig();
         var lang = plugin.getLangManager();
+        var content = plugin.getContentManager();
         Player player = sender instanceof Player p ? p : null;
 
         sender.sendMessage(MessageUtil.parse(lang.raw(Lang.HELP_HEADER, player), player));
 
+        Map<String, List<ContentManager.CommandEntry>> groups = content.groups(player);
         boolean any = false;
-        for (Map.Entry<String, InfoConfig.GroupEntry> e : cfg.help.groups.entrySet()) {
+
+        for (Map.Entry<String, List<ContentManager.CommandEntry>> e : groups.entrySet()) {
             String group = e.getKey();
-            InfoConfig.GroupEntry entry = e.getValue();
+            List<ContentManager.CommandEntry> commands = e.getValue();
 
             if (!shouldShow(player, group, cfg.help.strictGroupCheck)) continue;
-
             any = true;
 
-            // Заголовок группы — только если не default
             if (!group.equalsIgnoreCase("default")) {
                 String gh = lang.raw(Lang.HELP_GROUP_HEADER, player);
                 if (gh != null) {
-                    sender.sendMessage(MessageUtil.parse(
-                            gh.replace("{group}", group), player));
+                    sender.sendMessage(MessageUtil.parse(gh.replace("{group}", group), player));
                 }
             }
 
@@ -62,7 +65,7 @@ public class HelpCommand {
             String aliasesFormat = lang.raw(Lang.HELP_ALIASES_FORMAT, player);
             String hoverClick = lang.raw(Lang.HELP_HOVER_CLICK, player);
 
-            for (InfoConfig.CommandEntry cmd : entry.commands()) {
+            for (ContentManager.CommandEntry cmd : commands) {
                 String aliases = (cmd.aliases() == null || cmd.aliases().isEmpty())
                         ? "" : String.join(", ", cmd.aliases());
 
@@ -73,15 +76,13 @@ public class HelpCommand {
                         player
                 );
 
-                // Клик на команду + ховер
                 line = line.clickEvent(ClickEvent.suggestCommand(cmd.cmd()))
                         .hoverEvent(HoverEvent.showText(
                                 MessageUtil.parse(
-                                        (hoverClick == null ? "<gray>Нажми: <white>{cmd}</white></gray>" : hoverClick)
-                                                .replace("{cmd}", cmd.cmd()),
+                                        hoverClick.replace("{cmd}", cmd.cmd()),
                                         player)));
 
-                if (!aliases.isEmpty() && aliasesFormat != null) {
+                if (!aliases.isEmpty()) {
                     line = line.append(MessageUtil.parse(
                             aliasesFormat.replace("{aliases}", aliases), player));
                 }
@@ -108,13 +109,18 @@ public class HelpCommand {
                     .invoke(userManager, player.getUniqueId());
             if (user == null) return false;
 
+            Class<?> cachedDataClass = Class.forName("net.luckperms.api.cacheddata.CachedData");
+            Class<?> permissionDataClass = Class.forName("net.luckperms.api.cacheddata.CachedPermissionData");
+
             Object cached = user.getClass().getMethod("getCachedData").invoke(user);
-            Object permData = cached.getClass().getMethod("getPermissionData").invoke(cached);
-            return (boolean) permData.getClass()
+            Object permData = cachedDataClass.getMethod("getPermissionData").invoke(cached);
+            return (boolean) permissionDataClass
                     .getMethod("checkPermission", String.class)
                     .invoke(permData, "group." + group);
-        } catch (Throwable t) {
-            // LuckPerms не установлен — показываем все
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
+            return true;
+        } catch (Exception e) {
+            plugin.getLogger().warning("LuckPerms check failed for group '" + group + "': " + e.getMessage());
             return true;
         }
     }

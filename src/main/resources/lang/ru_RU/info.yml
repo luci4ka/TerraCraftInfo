@@ -1,0 +1,10 @@
+# Строки /info. Поддерживает PlaceholderAPI.
+info.header: "<gold><bold>ℹ Информация о сервере</bold></gold>"
+info.help.short: "Информация о сервере"
+info.help.full: "Показывает основную информацию о сервере."
+
+info:
+  - "<gray>Сервер:</gray> <white>TerraCraft</white>"
+  - "<gray>Онлайн:</gray> <white>%server_online%</white>"
+  - "<gray>Версия:</gray> <white>26.3+</white>"
+  - "<gray>Discord:</gray> <aqua>discord.gg/terracraft</aqua>"

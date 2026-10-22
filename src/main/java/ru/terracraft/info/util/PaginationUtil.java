@@ -1,13 +1,13 @@
-package ru.net.terracraft.info.util;
+package ru.terracraft.info.util;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import ru.net.terracraft.info.TerraCraftInfoPlugin;
-import ru.net.terracraft.info.lang.Lang;
-import ru.net.terracraft.info.lang.LangManager;
+import ru.terracraft.info.TerraCraftInfoPlugin;
+import ru.terracraft.info.lang.Lang;
+import ru.terracraft.info.lang.LangManager;
 
 import java.util.List;
 import java.util.Map;
@@ -59,6 +59,33 @@ public final class PaginationUtil {
             String command, int currentPage, int totalPages,
             LangManager lang, Player player
     ) {
+        // Если в lang задан footer — используем его как основу,
+        // иначе собираем навигацию из prev/indicator/next.
+        String footerRaw = lang.raw(Lang.PAGE_FOOTER, player);
+        if (footerRaw != null && !footerRaw.isEmpty()) {
+            String nextPage = String.valueOf(Math.min(currentPage + 1, totalPages));
+            String prevPage = String.valueOf(Math.max(currentPage - 1, 1));
+            Component footer = MessageUtil.parse(
+                    footerRaw
+                            .replace("{command}", command)
+                            .replace("{page}", String.valueOf(currentPage))
+                            .replace("{total}", String.valueOf(totalPages))
+                            .replace("{next_page}", nextPage)
+                            .replace("{prev_page}", prevPage),
+                    player
+            );
+
+            // Клик по footer — на следующую страницу, если она есть.
+            if (currentPage < totalPages) {
+                footer = footer
+                        .clickEvent(ClickEvent.runCommand("/" + command + " " + nextPage))
+                        .hoverEvent(HoverEvent.showText(
+                                MessageUtil.parse(lang.raw(Lang.PAGE_HOVER_NEXT, player), player)));
+            }
+            return footer;
+        }
+
+        // Fallback: prev ◀ indicator ▶ next
         Component prev = MessageUtil.parse(lang.raw(Lang.PAGE_PREV_LABEL, player), player);
         Component next = MessageUtil.parse(lang.raw(Lang.PAGE_NEXT_LABEL, player), player);
 
